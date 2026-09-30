@@ -1,0 +1,11 @@
+{
+  "name": "arjuna-productivity-assistant",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A calm personal productivity workspace for tasks, notes, focus sessions, meetings, and AI-guided planning.",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "check": "node --check app.js"
+  }
+}

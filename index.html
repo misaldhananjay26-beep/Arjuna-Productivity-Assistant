@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a1020" />
+    <meta name="description" content="Arjuna Productivity Assistant — a calm workspace for tasks, notes, focus sessions, meetings, and AI-guided planning." />
+    <title>Arjuna Productivity Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div><strong>Arjuna</strong><span>Productivity OS</span></div>
+        </div>
+        <nav class="nav-list" aria-label="Main navigation">
+          <button class="nav-item active" data-view="overview"><span>◈</span> Overview</button>
+          <button class="nav-item" data-view="tasks"><span>✓</span> Tasks <b id="taskNavCount">0</b></button>
+          <button class="nav-item" data-view="notes"><span>▤</span> Notes</button>
+          <button class="nav-item" data-view="planner"><span>◷</span> Planner</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-card">
+            <span class="eyebrow">Today’s intention</span>
+            <p>Make progress visible, not overwhelming.</p>
+          </div>
+          <button class="nav-item muted" id="openSettings"><span>⚙</span> Preferences</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+          <div>
+            <span class="eyebrow" id="greetingEyebrow">PERSONAL WORKSPACE</span>
+            <h1 id="pageTitle">Good afternoon, Dhananjay.</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="commandButton" aria-label="Open command palette">⌘K</button>
+            <button class="assistant-button" id="openAssistant"><span class="sparkle">✦</span> Ask Arjuna</button>
+            <div class="avatar">DM</div>
+          </div>
+        </header>
+
+        <section class="view active" id="overviewView">
+          <div class="hero-grid">
+            <div class="hero-card gradient-card">
+              <div class="hero-copy">
+                <span class="eyebrow light">FOCUS MODE</span>
+                <h2>Turn a busy day into one clear next step.</h2>
+                <p>Capture the work, choose the priority, and let Arjuna help you keep momentum.</p>
+                <button class="primary-button" id="startFocusFromHero">Start a focus session <span>→</span></button>
+              </div>
+              <div class="orb orb-one"></div><div class="orb orb-two"></div>
+            </div>
+            <div class="focus-card">
+              <div class="card-heading"><div><span class="eyebrow">FOCUS TIMER</span><h3 id="timerLabel">Ready when you are</h3></div><span class="status-dot"></span></div>
+              <div class="timer" id="timerDisplay">25:00</div>
+              <div class="timer-controls"><button class="primary-button small" id="timerToggle">Start</button><button class="ghost-button small" id="timerReset">Reset</button></div>
+              <div class="progress-track"><span id="timerProgress"></span></div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card"><span class="stat-icon blue">✓</span><div><strong id="completedStat">0</strong><span>completed today</span></div></div>
+            <div class="stat-card"><span class="stat-icon amber">!</span><div><strong id="priorityStat">0</strong><span>priority tasks</span></div></div>
+            <div class="stat-card"><span class="stat-icon violet">◷</span><div><strong id="sessionsStat">0</strong><span>focus sessions</span></div></div>
+            <div class="stat-card"><span class="stat-icon green">✦</span><div><strong id="streakStat">1 day</strong><span>current streak</span></div></div>
+          </div>
+
+          <div class="content-grid">
+            <div class="panel">
+              <div class="panel-heading"><div><span class="eyebrow">YOUR DAY</span><h3>Next actions</h3></div><button class="text-button" data-view="tasks">View all →</button></div>
+              <div class="task-list" id="overviewTasks"></div>
+              <button class="add-row" id="quickAddTask">＋ Add a task</button>
+            </div>
+            <div class="panel insight-panel">
+              <div class="panel-heading"><div><span class="eyebrow">ARJUNA INSIGHT</span><h3>A calmer plan</h3></div><span class="sparkle-badge">✦</span></div>
+              <p id="insightText">You have space for one meaningful win. Start with the task that makes another task easier.</p>
+              <button class="outline-button" id="insightAsk">Ask for a plan</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="tasksView">
+          <div class="section-heading"><div><span class="eyebrow">WORK QUEUE</span><h2>Tasks that move things forward.</h2><p>Keep the list small enough to trust.</p></div><button class="primary-button" id="newTaskButton">＋ New task</button></div>
+          <div class="filter-row"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="open">Open</button><button class="filter" data-filter="priority">Priority</button><button class="filter" data-filter="done">Completed</button></div>
+          <div class="full-task-list" id="fullTaskList"></div>
+        </section>
+
+        <section class="view" id="notesView">
+          <div class="section-heading"><div><span class="eyebrow">THOUGHT SPACE</span><h2>Notes for the ideas in motion.</h2><p>Write freely. Save locally. Return when you are ready.</p></div><button class="primary-button" id="saveNoteButton">Save note</button></div>
+          <div class="notes-layout"><div class="note-editor"><input id="noteTitle" placeholder="Note title" /><textarea id="noteBody" placeholder="What is on your mind?"></textarea><div class="editor-footer"><span id="noteStatus">Local draft</span><span>Saved in this browser</span></div></div><div class="saved-notes" id="savedNotes"></div></div>
+        </section>
+
+        <section class="view" id="plannerView">
+          <div class="section-heading"><div><span class="eyebrow">LOOK AHEAD</span><h2>Plan conversations with intention.</h2><p>Keep meetings connected to outcomes, not just calendar slots.</p></div><button class="primary-button" id="newMeetingButton">＋ Add meeting</button></div>
+          <div class="planner-grid"><div class="panel"><div class="panel-heading"><div><span class="eyebrow">UPCOMING</span><h3>Meetings</h3></div></div><div id="meetingList"></div></div><div class="panel checklist-panel"><span class="eyebrow">BEFORE YOU MEET</span><h3>A useful three-minute prep</h3><ol><li>Write the outcome in one sentence.</li><li>Bring one decision, not ten updates.</li><li>Leave with an owner and a next date.</li></ol><button class="outline-button" id="prepAsk">Ask Arjuna to prepare</button></div></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="taskModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" data-close="taskModal">×</button><span class="eyebrow">NEW TASK</span><h2>What needs your attention?</h2><form id="taskForm"><label>Task title<input id="taskTitleInput" required placeholder="e.g. Finish the project README" /></label><label>When<select id="taskWhen"><option>Today</option><option>Tomorrow</option><option>This week</option></select></label><label class="check-label"><input type="checkbox" id="taskPriority" /> Mark as priority</label><button class="primary-button" type="submit">Add task</button></form></div></div>
+    <div class="modal" id="meetingModal" aria-hidden="true"><div class="modal-card"><button class="modal-close" data-close="meetingModal">×</button><span class="eyebrow">NEW MEETING</span><h2>Give the conversation a purpose.</h2><form id="meetingForm"><label>Meeting title<input id="meetingTitleInput" required placeholder="e.g. Arjuna roadmap review" /></label><label>Date and time<input id="meetingTimeInput" type="datetime-local" required /></label><label>Desired outcome<input id="meetingOutcomeInput" placeholder="What should be clear by the end?" /></label><button class="primary-button" type="submit">Add meeting</button></form></div></div>
+    <div class="assistant-drawer" id="assistantDrawer"><div class="drawer-header"><div><span class="eyebrow">ARJUNA COPILOT</span><h2>Think with clarity.</h2></div><button class="modal-close" id="closeAssistant">×</button></div><div class="chat-messages" id="chatMessages"><div class="chat-bubble assistant">Tell me what you are trying to move forward. I can turn it into a short plan, a task list, or a meeting brief.</div></div><form class="chat-form" id="chatForm"><input id="chatInput" placeholder="Ask for a plan..." autocomplete="off" /><button aria-label="Send message">↑</button></form><small class="drawer-note">Add <code>GEMINI_API_KEY</code> when you deploy for live AI responses. The local fallback still works without it.</small></div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
